@@ -35,6 +35,18 @@ app = FastAPI(
         "url": projectMetadata['License']
     }
 )
+allowed_origins = [
+    "http://localhost:4200",  # Make sure this matches the port your frontend is running on
+    "https://yourfrontenddomain.com",  # Replace this with your actual frontend domain
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,  # List of allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 assets_path = os.getcwd() + "/swagger-ui-assets"
 if path.exists(assets_path + "/swagger-ui.css") and path.exists(assets_path + "/swagger-ui-bundle.js"):
